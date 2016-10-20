@@ -1,0 +1,148 @@
+﻿<h1>
+    Welcome</h1>
+<label>
+    Name</label>
+<input type="text" id="name" />
+<label>
+    Username</label>
+<input type="text" id="user" />
+<label>
+    Password</label>
+<input type="text" id="pass" />
+<label>
+    City</label>
+   
+<input type="text" id="city" />
+ <label >Text box=</label>
+<input type="text" id="test" />
+<input type="button" id="save" value="Save" />
+<input type="button" id="update" value="Update" />
+<input type="button" id="delete" value="Delete" />
+<table id="mytable" class="display" style="border: 1px; margin: 2px; border-color: Red;">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                username
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                City
+            </th>
+        </tr>
+    </thead>
+</table>
+ 
+<link href="../../Content/DataTables-1.9.4/media/css/jquery.dataTables.css" rel="stylesheet"
+    type="text/css" />
+<script src="../../Scripts/jquery-1.6.2.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    alert($("input:text").length);
+    
+    $("#save").click(function () {
+        
+        var name = $("#name").val();
+        var user = $("#user").val();
+        var pass = $("#pass").val();
+        var city = $("#city").val();
+        
+        
+        $.ajax({
+            url: "../Home/save1",
+            type: "post",
+            data: { a: name, b: user, c: pass, d: city },
+            success: function (data) {
+                alert("Save success");
+            }
+
+        });
+    });
+
+    $("#update").click(function () {
+        var a = $("#name").val();
+        alert(a);
+        var b = $("#user").val();
+        alert(b);
+        var c = $("#pass").val();
+        alert(c);
+        var d = $("#city").val();
+        alert(d);
+
+        $.ajax({
+            url: "../Home/update",
+            type: "post",
+            data: { name: a, user: b, pass: c, city: d },
+            success: function (data) {
+                alert("Update success");
+            }
+        });
+    });
+
+</script>
+
+<link href="../../Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet"
+    type="text/css" />
+
+<script type="text/javascript" src="../../Content/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript">
+
+    $("#mytable").dataTable({
+        "sAjaxSource": "../Home/grid",
+        "bDestory": true,
+        "aColumns":
+        [
+        { "sName": "" },
+        { "sName": "" },
+        { "sName": "" },
+        { "sName": "" }
+
+        ]
+    });
+
+    $("#mytable").delegate("tr", "click", function () {
+        var m = $("#mytable").dataTable();
+        var p = m.fnGetPosition(this);
+        if (p != '') {
+            var e = m.fnGetData(p);
+            $("#name").val(e[0]);
+            $("#user").val(e[1]);
+            $("#pass").val(e[2]);
+            $("#city").val(e[3]);
+        }
+    });
+
+    $("#city").autocomplete({
+    
+        source: function (requset, response) {
+            $.ajax({
+                url: '../Home/auto',
+                datatype: "Json",
+                data: { searchresult: $("#city").val(),
+                    maxResults: 10
+                },
+                contentType: "application/json;charset=uft-8",
+                success: function (data) {
+                    if (data == 0) {
+
+                    }
+                    else {
+                        response(data.slice(0, 10));
+                    }
+                }
+            });
+        },
+        minLength: 1,
+        select: hai1
+    });
+
+    function hai1(event, ui) {
+        $("#city").val(ui.item.serchresult);
+    }
+</script>
