@@ -1,0 +1,539 @@
+﻿@{
+    ViewBag.Title = "Student";
+}
+<script src="../../Content/jscolor.js" type="text/javascript"></script>
+<script src="../../Content/jscolor.min.js" type="text/javascript"></script>
+<style type="text/css">
+    #dataEntry
+    {
+        border-left-style: inset;
+        border-left-color: #7FFFD4;
+        border-left-width: 11px;
+        border-right-style: inset;
+        border-right-color: #7FFFD4;
+        background: silver;
+    }
+    #dataEntry tr td:hover
+    {
+        background: linear-gradient(lavender, olive, lavender, lavender);
+    }
+    #dataEntry tr td
+    {
+        font-weight: bold;
+        text-align: center;
+    }
+    #dataEntry tr td label
+    {
+        font-weight: bold;
+        text-align: left;
+        margin-left: 30px;
+    }
+    @*#datatable thead tr
+    {
+        background: linear-gradient(lavender, olive, olive,lavender, lavender);
+        font-weight: bold;
+        color: black;
+        white-space: nowrap;
+    }
+    
+    #datatable tbody tr
+    {
+        background-color: #8FBC8F;
+        color: White;
+        white-space: normal;
+        cursor: default;
+    }
+    #datatable tbody tr td:hover
+    {
+        cursor: default;
+    }*@
+
+</style>
+<input type="hidden" id="sid" />
+<h3 align="center">
+    Student</h3>
+<table class="table table-bordered">
+    <tr>
+        <td>
+            <input type="radio" name="filter" value="All" id="radioall" style="margin-bottom: 5px" />All
+        </td>
+        <td>
+            <input type="radio" name="filter" value="Male" id="radiomale" style="margin-bottom: 5px" />Male
+        </td>
+        <td>
+            <input type="radio" name="filter" value="Female" id="radiofemale" style="margin-bottom: 5px" />Female
+        </td>
+    </tr>
+</table>
+<table class="table table-hover" id="maintable">
+    <thead>
+        <tr>
+            <td>
+                Id
+            </td>
+            <td>
+                Name
+            </td>
+            <td>
+                Gender
+            </td>
+            <td>
+                Date of Birth
+            </td>
+            <td>
+                Age
+            </td>
+            <td>
+                Qualification
+            </td>
+            <td>
+                Department
+            </td>
+            <td>
+                State
+            </td>
+            <td>
+                Address
+            </td>
+            <td>
+                Email Id
+            </td>
+            <td>
+                Mobile
+            </td>
+        </tr>
+    </thead>
+</table>
+<table class="table table-bordered" id="datatable">
+    <thead>
+        <tr>
+            <td>
+                Image
+            </td>
+            <td>
+                Id
+            </td>
+            <td>
+                Name
+            </td>
+            <td>
+                Gender
+            </td>
+            <td>
+                Date of Birth
+            </td>
+            <td>
+                Age
+            </td>
+            <td>
+                Qualification
+            </td>
+            <td>
+                Department
+            </td>
+            <td>
+                State
+            </td>
+            <td>
+                Address
+            </td>
+            <td>
+                Email Id
+            </td>
+            <td>
+                Mobile
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sss in ViewData["stuobj"] as IEnumerable<IntPractice.Models.Student>)
+        {
+            <tr>
+                <td>
+                    <a href="@sss.imgurl" download>
+                        <img src=@sss.imgurl width="50px" height="50px" /></a>
+                </td>
+                <td>@sss.Studentid
+                </td>
+                <td>@sss.Studentname
+                </td>
+                <td>@sss.Gender
+                </td>
+                <td>@sss.Dob
+                </td>
+                <td>@sss.Age
+                </td>
+                <td>@sss.Qualification
+                </td>
+                <td>@sss.Department
+                </td>
+                <td>@sss.States
+                </td>
+                <td>@sss.Addresss
+                </td>
+                <td>@sss.email
+                </td>
+                <td>@sss.mobile
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<table class="table table-hover" style="width: 250px" align="center" id="dataEntry">
+    <tr>
+        <td>
+            <img class="img-rounded" id="studimg" alt="Student Image" src="../../Images/IKoala.jpg18.jpg"
+                style="width: 100px; height: 100px; margin-left: 30px" />
+            <br />
+            <input type="file" id="browse" onchange="preview()" class="form-control" style="margin-left: 20px;" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                Student Name<span style="color: Red">*</span></label>
+            <input type="text" id="studname" class="form-control" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                Gender<span style="color: Red">*</span></label>
+            <input type="radio" name="gender" value="Male" class="form-control" style="margin-top: -1px"
+                id="genid1" />
+            <span></span>Male
+            <input type="radio" name="gender" value="Female" class="form-control" style="margin-top: -1px"
+                id="genid2" />
+            <span></span>Female
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                Date of Birth<span style="color: Red">*</span></label>
+            <input type="text" id="dob" class="form-control" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                Age<span style="color: Red">*</span></label>
+            <input type="text" id="age" class="form-control" disabled />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                Qualification<span style="color: Red">*</span></label>
+            <select id="qualification" class="form-control">
+                <option>--Select--</option>
+                <option>B.C.A</option>
+                <option>B.B.A</option>
+                <option>B.Sc</option>
+                <option>B.com</option>
+                <option>B.A</option>
+                <option>B.E</option>
+                <option>M.C.A</option>
+                <option>M.B.A</option>
+                <option>M.Sc</option>
+                <option>M.com</option>
+                <option>M.A</option>
+                <option>M.E</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                Department<span style="color: Red">*</span></label>
+            <select id="dept" class="form-control">
+                <option>--Select--</option>
+                <option>Computer Science</option>
+                <option>E.C.E</option>
+                <option>E.E.E</option>
+                <option>Mechanichal</option>
+                <option>Chemistry</option>
+                <option>Physics</option>
+                <option>Mathematics</option>
+                <option>English</option>
+                <option>Tamil</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                State<span style="color: Red">*</span></label>
+            <select id="state" class="form-control">
+                <option>--Select--</option>
+                <option>TamilNadu</option>
+                <option>Kerala</option>
+                <option>Andhra Pradesh</option>
+                <option>Karnataka</option>
+                <option>Bihar</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                E-Mail Id<span style="color: Red">*</span></label>
+            <input type="text" id="email" class="form-control" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                Mobile Number<span style="color: Red">*</span></label>
+            <input type="text" id="mobile" class="form-control" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>
+                Address<span style="color: Red">*</span></label>
+            <textarea id="address" cols="5" rows="1"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="button" id="save" value="Save" class="btn btn-success" />
+            <input type="button" id="update" value="Update" class="btn btn-success" style="display: none" />
+            <input type="button" id="cancel" value="Cancel" class="btn btn-danger" data-dismiss="modal" />
+        </td>
+    </tr>
+</table>
+<button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
+    Pick text color
+</button>
+@* HEX value: <input id="chosen-value" value="000000">*@
+<div>
+    @Html.Action("Partial1", "Patient");
+</div>
+<script type="text/javascript">
+    function setTextColor(picker) {
+        document.getElementsByTagName('body')[0].style.color = '#' + picker.toString()
+    }
+</script>
+<script type="text/javascript">
+
+    function preview() {
+
+        var filereader = new FileReader();
+        filereader.readAsDataURL(document.getElementById("browse").files[0]);
+        filereader.onload = function (e) {
+            document.getElementById("studimg").src = e.target.result;
+        }
+
+    }
+
+    function ageCalc(dateofbirth) {
+        var length = dateofbirth.length;
+        var str = dateofbirth.substr(6, length);
+        var date = new Date();
+        var age = parseInt(date.getFullYear()) - parseInt(str);
+        return age;
+    }
+
+    $("#dob").focusout(function () {
+        $("#age").val(ageCalc($("#dob").val()));
+    });
+    $("#save").click(function () {
+
+        var object = { "Studentname": "", "Gender": "", "Age": "", "Qualification": "", "Department": "", "States": "", "Dob": "", "Addresss": "", "email": "", "mobile": "", "imgurl": "" };
+        object.Studentname = $("#studname").val();
+        object.Gender = $("input:radio[name='gender']:checked").val();
+        object.Dob = $("#dob").val();
+        object.Age = $("#age").val();
+        object.Qualification = $("#qualification option:selected").text();
+        object.Department = $("#dept option:selected").text();
+        object.States = $("#state option:selected").text();
+        object.email = $("#email").val();
+        object.mobile = $("#mobile").val();
+        object.Addresss = $("#address").val();
+        object.imgurl = document.getElementById("studimg").src;
+
+        $.ajax({
+
+            url: "../Student/save",
+            data: JSON.stringify({ student: object }),
+            type: "POST",
+            contentType: "application/json;",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    alert(item);
+
+
+                    if (item == "Saved Successfully") {
+                        $("#studname").val("");
+                        $("input:radio[name='gender']").prop("checked", false);
+                        $("#dob").val("");
+                        $("#age").val("");
+                        $("#qualification option:selected").text("--Select--");
+                        $("#dept option:selected").text("--Select--");
+                        $("#state option:selected").text("--Select--");
+                        $("#email").val("");
+                        $("#mobile").val("");
+                        $("#address").val("");
+                        $("#browse").val("");
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+
+    });
+    $("#update").click(function () {
+        var object = { "Studentid": "", "Studentname": "", "Gender": "", "Age": "", "Qualification": "", "Department": "", "States": "", "Dob": "", "Addresss": "", "email": "", "mobile": "", "imgurl": "" };
+        object.Studentname = $("#studname").val();
+        object.Gender = $("input:radio[name='gender']:checked").val();
+        object.Dob = $("#dob").val();
+        object.Age = $("#age").val();
+        object.Qualification = $("#qualification option:selected").text();
+        object.Department = $("#dept option:selected").text();
+        object.States = $("#state option:selected").text();
+        object.email = $("#email").val();
+        object.mobile = $("#mobile").val();
+        object.Addresss = $("#address").val();
+        object.imgurl = document.getElementById("studimg").src;
+        object.Studentid = $("#sid").val();
+        $.ajax({
+
+            url: "../Student/update",
+            data: JSON.stringify({ student: object }),
+            type: "POST",
+            contentType: "application/json;",
+            success: function (data) {
+                alert(data);
+                if (data == "Saved Successfully") {
+                    $("#sid").val("");
+                    $("#studname").val("");
+                    $("input:radio[name='gender']").prop("checked", false);
+                    $("#dob").val("");
+                    $("#age").val("");
+                    $("#qualification option:selected").text("--Select--");
+                    $("#dept option:selected").text("--Select--");
+                    $("#state option:selected").text("--Select--");
+                    $("#email").val("");
+                    $("#mobile").val("");
+                    $("#address").val("");
+                    $("#browse").val("");
+                    location.reload();
+                }
+
+            }
+        });
+    });
+    $("#cancel").click(function () {
+        $("#studname").val("");
+        $("input:radio[name='gender']").prop("checked", false);
+        $("#dob").val("");
+        $("#age").val("");
+        $("#qualification option:selected").text("--Select--");
+        $("#dept option:selected").text("--Select--");
+        $("#state option:selected").text("--Select--");
+        $("#email").val("");
+        $("#mobile").val("");
+        $("#address").val("");
+        $("#browse").val("");
+        $("#save").show();
+        $("#update").hide();
+        location.reload();
+    });
+    $("#datatable tbody").delegate("tr", "dblclick", function () {
+        var array = new Array();
+        var ss = $(this).find("td:eq(1)").text();
+        $(this).find("td").each(function (i) {
+            array[i] = $(this).text();
+        });
+        $("#save").hide();
+        $("#update").show();
+        $("#sid").val(array[1].trim());
+        $.ajax({
+            url: "../Student/getImage",
+            type: "POST",
+            data: { id: array[1] },
+            success: function (data) {
+                $("#studimg").attr("src", data);
+            }
+        });
+        $("#studname").val(array[2].trim());
+        if (array[3].trim() == "Male") {
+            $("#genid1").prop("checked", true);
+
+        }
+        else {
+            $("#genid2").prop("checked", true);
+        }
+
+        $("#dob").val(array[4].trim());
+        $("#age").val(array[5]);
+        $("#qualification option:selected").text(array[6].trim());
+        $("#dept option:selected").text(array[7].trim());
+        $("#state option:selected").text(array[8].trim());
+        $("#email").val(array[9].trim());
+        $("#mobile").val(array[10].trim());
+        $("#address").val(array[11].trim());
+        $("#browse").val("");
+        $("#myModal").hide();
+    });
+    $("#maintable").dataTable(
+    {
+        "sAjaxSource": "../Student/dataForDataTable",
+        "fnRowCallBack": function (nRow, aaData, iDisplayIndex) {
+            console.log(aaData);
+            return nRow;
+
+        },
+        "aColumns": [{ "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": ""}]
+
+
+    });
+    $("input:radio[name='filter']").click(function () {
+        var str = $(this).val();
+        alert(str.length);
+        if (str == "All") {
+            $("#maintable").dataTable(
+       {
+           "bDestroy": true,
+           "sAjaxSource": '../Student/dataForDataTable',
+           "fnRowCallBack": function (nRow, aaData, iDisplayIndex) {
+               return nRow;
+           },
+           //"aoColumnDefs": [{ "aTargets": [2], "mRender": function (data, type, full) { console.log(data); $(this).text('color', 'red'); } }],
+
+           "aColumns": [{ "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": ""}]
+       });
+
+        }
+        if (str == "Male") {
+            $("#maintable").dataTable(
+       {
+           "bDestroy": true,
+           "sAjaxSource": '../Student/dataTableFilter?str=' + str,
+           "fnRowCallBack": function (nRow, aaData, iDisplayIndex) {
+               return nRow;
+           },
+           //"aoColumnDefs": [{ "aTargets": [2], "mRender": function (data, type, full) { console.log(data); $(this).text('color', 'red'); } }],
+
+           "aColumns": [{ "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": ""}]
+       });
+
+        }
+        if (str == "Female") {
+            $("#maintable").dataTable(
+       {
+           "bDestroy": true,
+           "sAjaxSource": '../Student/dataTableFilter?str=' + str,
+           "fnRowCallBack": function (nRow, aaData, iDisplayIndex) {
+               return nRow;
+           },
+           //"aoColumnDefs": [{ "aTargets": [2], "mRender": function (data, type, full) { console.log(data); $(this).text('color', 'red'); } }],
+
+           "aColumns": [{ "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": "", "sName": ""}]
+       });
+        }
+
+    });
+</script>
